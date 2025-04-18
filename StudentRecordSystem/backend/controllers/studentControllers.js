@@ -5,6 +5,7 @@ const getStudents = (req, res) => res.json(students);
 
 const addStudent = (req, res) => {
     const { name, course } = req.body;
+    const image = req.file ? `/uploads/${req.file.filename}` : null;
     const newStudent = { id: uuidv4(), name, course };
     students.push(newStudent);
     res.status(201).json(newStudent);
