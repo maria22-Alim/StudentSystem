@@ -5,7 +5,6 @@ const getStudents = (req, res) => res.json(students);
 
 const addStudent = (req, res) => {
     const { name, course } = req.body;
-    const image = req.file ? `/uploads/${req.file.filename}` : null;
     const newStudent = { id: uuidv4(), name, course };
     students.push(newStudent);
     res.status(201).json(newStudent);
@@ -18,6 +17,7 @@ const updateStudent = (req, res) => {
     if (!student) return res.status(404).json({ message: "Student not found" });
     student.name = name;
     student.course = course;
+    
     res.status(200).json(student);
 };
 

@@ -3,19 +3,22 @@ import React from "react";
 const StudentList = ({ students }) => {
   const defaultStudents = [
     { name: "Alim, Maria Theresa F", course: "BSIT" },
-    { name: "Aquino, Zywren Vhiel ", course: "BSIT" },
-    { name: "Lanzar, Stephen Louise ", course: "BSIT" },
-    { name: "Viñas, Francis ", course: "BSIT" },
-    { name: "Babon, Hazel Joy", course: "BSIT"},
+    { name: "Aquino, Zywren Vhiel", course: "BSIT" },
+    { name: "Lanzar, Stephen Louise", course: "BSIT" },
+    { name: "Viñas, Francis", course: "BSIT" },
+    { name: "Babon, Hazel Joy", course: "BSIT" },
   ];
 
+  // Use defaultStudents if students is undefined or empty
+  const displayStudents = students && students.length > 0 ? students : defaultStudents;
+
   return (
-    <div style={{ textAlign: "center" }}>
+    <div>
       <h2>Student List</h2>
-      <ul style={{ listStyle: "none", padding: 0 }}> 
-        {(students.length === 0 ? defaultStudents : students).map((student, index) => (
-          <li key={index} style={{ margin: "10px 0", fontSize: "18px" }}>
-            <strong>{student.name}</strong> - {student.course}
+      <ul>
+        {displayStudents.map((student, index) => (
+          <li key={index}>
+            <strong>Name:</strong> {student.name} — <strong>Course:</strong> {student.course}
           </li>
         ))}
       </ul>
@@ -24,3 +27,4 @@ const StudentList = ({ students }) => {
 };
 
 export default StudentList;
+

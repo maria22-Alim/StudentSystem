@@ -1,4 +1,3 @@
-import './App.css';
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import StudentForm from "./components/StudentForm";
@@ -6,32 +5,36 @@ import StudentList from "./components/StudentList";
 
 const App = () => {
   const [students, setStudents] = useState([]);
-  
+
   // Fetch students on page load
   useEffect(() => {
     fetchStudents();
   }, []);
 
   const fetchStudents = async () => {
-    const response = await axios.get("http://localhost:5000/api/students");
-    setStudents(response.data);
+    try {
+      const response = await axios.get("http://127.0.0.1:5000/api/students");
+      setStudents(response.data);
+    } catch (error) {
+      console.error("Error fetching students:", error);
+    }
   };
 
-  const addStudent = async (formData) => {
-    await axios.post("http://localhost:5000/api/students", formData);
-    fetchStudents();
-  };
-
-  const deleteStudent = async (id) => {
-    await axios.delete(`http://localhost:5000/api/students/${id}`);
-    fetchStudents();
+  // Add student and update list
+  const addStudent = async (name, course) => {
+    try {
+      await axios.post("http://127.0.0.1:5000/api/students", { name, course });
+      fetchStudents(); // Refresh student list immediately
+    } catch (error) {
+      console.error("Error adding student:", error);
+    }
   };
 
   return (
-    <div className="container text-center">
+    <div>
       <h1>Student Recording System</h1>
       <StudentForm addStudent={addStudent} />
-      <StudentList students={students} deleteStudent={deleteStudent} />
+      <StudentList students={students} />
 
    <img
 
